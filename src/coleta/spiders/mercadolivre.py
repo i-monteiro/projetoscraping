@@ -6,7 +6,7 @@ class MercadolivreSpider(scrapy.Spider):
     allowed_domains = ["lista.mercadolivre.com.br"]
     start_urls = ["https://lista.mercadolivre.com.br/televisao-smart#D[A:televisao%20smart]"]
     page_count = 1
-    max_page = 30
+    max_page = 5
 
     def parse(self, response):
         products = response.css('div.ui-search-result__content')
