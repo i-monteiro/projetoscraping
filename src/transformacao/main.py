@@ -22,9 +22,8 @@ df['new_price_centavos'] = df['new_price_centavos'].fillna(0).astype(float)
 # Trata valores nulos na coluna 'reviews_rating_number', substituindo nulos por 0 e convertendo para float
 df['reviews_rating_number'] = df['reviews_rating_number'].fillna(0).astype(float)
 
-# Remove parênteses dos valores na coluna 'reviews_amount' e converte os dados para inteiros
-df['reviews_amount'] = df['reviews_amount'].astype(str).str.replace(r'[\(\)]', '', regex=True)
-df['reviews_amount'] = df['reviews_amount'].fillna(0).astype(int)
+# Remove parênteses dos valores na coluna 'reviews_amount', converte valores não numéricos para NaN e depois para inteiros
+df['reviews_amount'] = pd.to_numeric(df['reviews_amount'].astype(str).str.replace(r'[\(\)]', '', regex=True), errors='coerce').fillna(0).astype(int)
 
 # Cria uma nova coluna 'old_price' calculando o preço antigo a partir de reais e centavos
 df['old_price'] = df['old_price_reais'] + df['old_price_centavos'] / 100
@@ -38,8 +37,8 @@ df.drop(columns=['old_price_reais', 'old_price_centavos', 'new_price_reais', 'ne
 # Cria uma conexão com um banco de dados SQLite
 conn = sqlite3.connect('../data/quotes.db')
 
-# Salva o DataFrame em uma tabela SQL chamada 'mercadolivre_items' no banco de dados, substituindo os dados se a tabela já existir
-df.to_sql('mercadolivre_items', conn, if_exists='replace', index=False)
+# Salva o DataFrame em uma tabela SQL chamada 'mercadolivre_itens' no banco de dados, substituindo os dados se a tabela já existir
+df.to_sql('mercadolivre_itens', conn, if_exists='replace', index=False)
 
 # Fecha a conexão com o banco de dados
 conn.close()
