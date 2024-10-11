@@ -4,7 +4,7 @@ import scrapy
 class MercadolivreSpider(scrapy.Spider):
     name = "mercadolivre"
     allowed_domains = ["lista.mercadolivre.com.br"]
-    start_urls = ["https://lista.mercadolivre.com.br/televisao-smart#D[A:televisao%20smart]"]
+    start_urls = ["https://lista.mercadolivre.com.br/camera-t7i-canon-usada#D[A:camera%20t7i%20canon%20usada]"]
     page_count = 1
     max_page = 5
 

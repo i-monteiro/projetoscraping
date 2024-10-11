@@ -7,7 +7,7 @@ from datetime import datetime
 df = pd.read_json('C:\\Users\\Ítalo Monteiro\\OneDrive\\Desktop\\Scraping\\data\\data.json')
 
 # Adiciona uma nova coluna '_source' contendo a URL de onde os dados foram coletados
-df['_source'] = "https://lista.mercadolivre.com.br/televisao-smart#D[A:televisao%20smart]"
+df['_source'] = "https://lista.mercadolivre.com.br/camera-t7i-canon-usada#D[A:camera%20t7i%20canon%20usada]"
 
 # Adiciona uma nova coluna '_data_coleta' com a data e hora atual, indicando quando os dados foram coletados
 df['_data_coleta'] = datetime.now()
@@ -35,7 +35,7 @@ df['new_price'] = df['new_price_reais'] + df['new_price_centavos'] / 100
 df.drop(columns=['old_price_reais', 'old_price_centavos', 'new_price_reais', 'new_price_centavos'], inplace=True)
 
 # Cria uma conexão com um banco de dados SQLite
-conn = sqlite3.connect('../data/quotes.db')
+conn = sqlite3.connect('C:\\Users\\Ítalo Monteiro\\OneDrive\\Desktop\\Scraping\\data\\quotes.db')
 
 # Salva o DataFrame em uma tabela SQL chamada 'mercadolivre_itens' no banco de dados, substituindo os dados se a tabela já existir
 df.to_sql('mercadolivre_itens', conn, if_exists='replace', index=False)
